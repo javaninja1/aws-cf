@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: VPC Creation
+Resources:
+  myvpc:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock:
+        !Join [ '', [ "10.60",".0.0/16" ] ]
+      InstanceTenancy: default
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: myvpc
+Outputs:
+  VpcId:
+    Value: !Ref myvpc
+    Description: VpcId value
+    Export:
+      Name:  !Sub "${AWS::StackName}-VpcId"
+

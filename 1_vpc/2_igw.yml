@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: SG Creation
+Resources:
+  mySG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: !Join [ '', [  'SG Group',  !Ref AWS::AccountId ] ]
+      GroupName: 'Group1'
+      VpcId: !ImportValue 
+            'Fn::Sub': 'mystack1-VpcId'
+      Tags:
+        - Key: Name
+          Value: 'mySG'
+
+Outputs:
+  sgId:
+    Value: !Ref mySG
+    Description: SGId value
+    Export:
+      Name:  !Sub "${AWS::StackName}-SGId"
+
